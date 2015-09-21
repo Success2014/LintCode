@@ -17,6 +17,26 @@ public class PartitionArray {
 	    return j;
     }
 	
+	public int partitionArray2(int[] nums, int k) {
+        int i = 0, j = nums.length - 1;
+        while (i <= j){
+            while (i <= j && nums[i] < k){
+                i++;
+            }
+            while (i <= j && nums[j] >= k){
+                j--;
+            }
+            if (i <= j){
+                int temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
+            }
+        }
+        return i;
+        
+        
+    }
+	
 	public static void main(String[] args){
 		PartitionArray pa = new PartitionArray();
 		int[] nums1 = {9, 8, 1, 2, 6, 4, 3};
