@@ -1,27 +1,28 @@
 package first;
 
 public class LongestCommonSubsequence2 {
-	public int longestIncreasingSubsequence(int[] nums) {
-        int n = nums.length;
-        if (n == 0) {
-            return 0;
+	public int longestCommonSubsequence(String A, String B) {
+        int m = A.length();
+        int n = B.length();
+        
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = 0;
         }
-        if (n == 1) {
-            return 1;
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = 0;
         }
-        int[] dp = new int[n];
-        dp[0] = 1;
-        int max = 1;
-        for (int i = 1; i < n; i++) {
-            dp[i] = 1;
-            for (int j = 0; j < i; j++) {
-                if (nums[j] <= nums[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
+        
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (A.charAt(i - 1) == B.charAt(j - 1)) {
+                    dp[i][j] = Math.max(dp[i - 1][j - 1] + 1, Math.max(dp[i - 1][j], dp[i][j - 1]));
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
-            max = Math.max(max, dp[i]);
         }
-        return max;
+        return dp[m][n];
     }
 
 }
